@@ -1,0 +1,22 @@
+<div class="card my-5">
+    <div class="card-body">
+      <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Comment</th>
+            <th scope="col">Associated Tour</th>
+            <th scope="col">Difficulty Assertion</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let log of tour_logs">
+            <td>{{ log.id }}</td>
+            <td>{{ log.comment }}</td>
+            <td>{{ log.tour.id }}</td>
+            <td>{{ log.difficulty}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>

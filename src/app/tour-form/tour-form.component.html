@@ -1,0 +1,52 @@
+<div class="card my-5">
+    <div class="card-body">
+      <form (ngSubmit)="onSubmit()" #tourForm="ngForm">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" [(ngModel)]="tour.name"
+            class="form-control" 
+            id="name" 
+            name="name" 
+            placeholder="Enter Tour name"
+            required #name="ngModel">
+        </div>
+        <div [hidden]="!name.pristine" class="alert alert-danger">Name is required</div>
+        <div class="form-group">
+          <label for="fromAddress">Starting Address</label>
+          <input type="text" [(ngModel)]="tour.fromAddress"
+            class="form-control" 
+            id="fromAddress" 
+            name="fromAddress" 
+            placeholder="Enter Starting Address"
+            required #fromAddress="ngModel">
+        </div>
+        <div [hidden]="!fromAddress.pristine" class="alert alert-danger">Starting Address is required</div>
+        <div class="form-group">
+            <label for="toAddress">Tour Destination</label>
+            <input type="text" [(ngModel)]="tour.toAddress"
+              class="form-control" 
+              id="toAddress" 
+              name="toAddress" 
+              placeholder="Enter Tour destination"
+              required #toAddress="ngModel">
+          </div>
+          <div [hidden]="!toAddress.pristine" class="alert alert-danger">Tour Destination is required</div>
+          <div class="form-group">
+            <label for="transportType">Transport Type</label>
+            <select [(ngModel)]="tour.transportType"
+              class="form-control"
+              id="transportType"
+              name="transportType"
+              required #transportType="ngModel">
+              <option value="driving-car">Driving</option>
+              <option value="cycling-regular">Cycling</option>
+              <option value="foot-walking" selected>Walking</option>
+            </select>
+            <div [hidden]="!transportType.pristine" class="alert alert-warning">Please Select a mode of transportation</div>
+          </div>
+        <button type="submit" [disabled]="!tourForm.form.valid" 
+          class="btn btn-info">Submit</button>
+      </form>
+    </div>
+  </div>
+  
