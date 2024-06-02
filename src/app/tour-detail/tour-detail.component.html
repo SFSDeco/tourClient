@@ -65,6 +65,7 @@
 <!-- Display edit and delete buttons if not editing -->
 <div class="card my-5" *ngIf="!isEditing">
   <div class="card-body">
+    <button class="btn btn-success mr-2" (click)="downloadPdf()">Download Tour Report</button>
     <button class="btn btn-primary mr-2" (click)="editTour()">Edit</button>
     <button class="btn btn-info mr-2" (click)="viewTourLogs()">View Logs</button>
     <button class="btn btn-danger mr-2" (click)="deleteTour()">Delete</button>

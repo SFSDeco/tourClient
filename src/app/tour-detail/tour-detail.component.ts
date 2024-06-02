@@ -98,4 +98,28 @@ export class TourDetailComponent implements OnInit {
   viewTourLogs() {
     this.router.navigate(['/tour-logs', this.tour.id]);
   }
+
+  downloadPdf(){
+    this.tourService.getTourReport(this.tour.id).subscribe(
+      (response: any) => {
+        const blob = new Blob([response.body], { type: 'application/pdf' });
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'tour_report.pdf';
+        document.body.appendChild(link);
+        link.click();
+        // Cleanup
+        setTimeout(() => {
+          window.URL.revokeObjectURL(url);
+          document.body.removeChild(link);
+        }, 100);
+      },
+      error => {
+        console.error('Error downloading PDF:', error);
+        // Handle error
+      }
+    );
+    
+  }
 }

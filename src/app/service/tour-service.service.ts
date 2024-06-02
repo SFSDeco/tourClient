@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Tour } from '../model/tour';
 import { Observable } from 'rxjs';
 
@@ -38,6 +38,11 @@ export class TourService {
   public delete(tourId: string) {
     const url = `${this.tourUrl}/${tourId}`
     return this.http.delete(url);
+  }
+
+  public getTourReport(tourId: string): Observable<HttpResponse<Blob>> {
+    const url = `${this.tourUrl}/report/${tourId}`;
+    return this.http.get(url, { observe: 'response', responseType: 'blob' });
   }
 
 }
