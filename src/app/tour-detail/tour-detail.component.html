@@ -1,0 +1,80 @@
+<!-- Display tour details if not editing -->
+<div class="card my-5" *ngIf="!isEditing">
+  <div class="card-body">
+    <h2>{{ tour.name }}</h2>
+    <p><strong>From:</strong> {{ tour.fromAddress }}</p>
+    <p><strong>To:</strong> {{ tour.toAddress }}</p>
+    <p><strong>Transport Type:</strong> {{ tour.transportation_type }}</p>
+  </div>
+</div>
+
+<!-- Display edit form if editing -->
+<div class="card my-5" *ngIf="isEditing">
+  <div class="card-body">
+    <form (ngSubmit)="saveTour()" #tourForm="ngForm">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" [(ngModel)]="tour.name"
+          class="form-control" 
+          id="name" 
+          name="name" 
+          placeholder="Enter Tour name"
+          required #name="ngModel">
+      </div>
+      <div [hidden]="!name.pristine" class="alert alert-danger">Name is required</div>
+      <div class="form-group">
+        <label for="fromAddress">Starting Address</label>
+        <input type="text" [(ngModel)]="tour.fromAddress"
+          class="form-control" 
+          id="fromAddress" 
+          name="fromAddress" 
+          placeholder="Enter Starting Address"
+          required #fromAddress="ngModel">
+      </div>
+      <div [hidden]="!fromAddress.pristine" class="alert alert-danger">Starting Address is required</div>
+      <div class="form-group">
+          <label for="toAddress">Tour Destination</label>
+          <input type="text" [(ngModel)]="tour.toAddress"
+            class="form-control" 
+            id="toAddress" 
+            name="toAddress" 
+            placeholder="Enter Tour destination"
+            required #toAddress="ngModel">
+        </div>
+        <div [hidden]="!toAddress.pristine" class="alert alert-danger">Tour Destination is required</div>
+        <div class="form-group">
+          <label for="transportation_type">Transport Type</label>
+          <select [(ngModel)]="tour.transportation_type"
+            class="form-control"
+            id="transportation_type"
+            name="transportation_type"
+            required #transportation_type="ngModel">
+            <option value="driving-car">Driving</option>
+            <option value="cycling-regular">Cycling</option>
+            <option value="foot-walking" selected>Walking</option>
+          </select>
+          <div [hidden]="!transportation_type.pristine" class="alert alert-warning">Please Select a mode of transportation</div>
+        </div>
+      <button type="submit" [disabled]="!tourForm.form.valid" 
+        class="btn btn-info">Save</button>
+      <button type="button" class="btn btn-danger ml-2" (click)="cancelEdit()">Cancel</button>
+    </form>
+  </div>
+</div>
+
+<!-- Display edit and delete buttons if not editing -->
+<div class="card my-5" *ngIf="!isEditing">
+  <div class="card-body">
+    <button class="btn btn-primary mr-2" (click)="editTour()">Edit</button>
+    <button class="btn btn-info mr-2" (click)="viewTourLogs()">View Logs</button>
+    <button class="btn btn-danger mr-2" (click)="deleteTour()">Delete</button>
+  </div>
+</div>
+
+
+<!-- Display map image -->
+<div *ngIf="mapImageUrl" class="card my-5">
+  <div class="card-body">
+    <img [src]="mapImageUrl" alt="Tour Map">
+  </div>
+</div>

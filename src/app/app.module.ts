@@ -9,13 +9,15 @@ import { TourFormComponent } from './tour-form/tour-form.component';
 import { TourService } from './service/tour-service.service';
 import { TourLogListComponent } from './tour-log-list/tour-log-list.component';
 import { TourLogService } from './service/tour-log-service.service';
+import { TourDetailComponent } from './tour-detail/tour-detail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TourListComponent,
     TourFormComponent,
-    TourLogListComponent
+    TourLogListComponent,
+    TourDetailComponent
   ],
   imports: [
     BrowserModule,

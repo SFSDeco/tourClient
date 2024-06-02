@@ -32,17 +32,17 @@
           </div>
           <div [hidden]="!toAddress.pristine" class="alert alert-danger">Tour Destination is required</div>
           <div class="form-group">
-            <label for="transportType">Transport Type</label>
-            <select [(ngModel)]="tour.transportType"
+            <label for="transportation_type">Transport Type</label>
+            <select [(ngModel)]="tour.transportation_type"
               class="form-control"
-              id="transportType"
-              name="transportType"
-              required #transportType="ngModel">
+              id="transportation_type"
+              name="transportation_type"
+              required #transportation_type="ngModel">
               <option value="driving-car">Driving</option>
               <option value="cycling-regular">Cycling</option>
               <option value="foot-walking" selected>Walking</option>
             </select>
-            <div [hidden]="!transportType.pristine" class="alert alert-warning">Please Select a mode of transportation</div>
+            <div [hidden]="!transportation_type.pristine" class="alert alert-warning">Please Select a mode of transportation</div>
           </div>
         <button type="submit" [disabled]="!tourForm.form.valid" 
           class="btn btn-info">Submit</button>

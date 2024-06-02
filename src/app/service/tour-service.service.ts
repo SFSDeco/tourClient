@@ -16,7 +16,28 @@ export class TourService {
     return this.http.get<Tour[]>(this.tourUrl);
   }
 
+  public findById(tourId : string): Observable<Tour> {
+    const url = `${this.tourUrl}/${tourId}`;
+    return this.http.get<Tour>(url);
+  }
+
+  public getTourMapImage(tourId: string): Observable<Blob> {
+    const url = `${this.tourUrl}/map/${tourId}`; // Assuming your endpoint is /map/{tourId}
+    return this.http.get(url, { responseType: 'blob' });
+  }
+
   public save(tour: Tour) {
     return this.http.post<Tour>(this.tourUrl, tour);
   }
+
+  public updateTour(tour: Tour){
+    const url = `${this.tourUrl}/${tour.id}`;
+    return this.http.put<Tour>(url, tour);
+  }
+
+  public delete(tourId: string) {
+    const url = `${this.tourUrl}/${tourId}`
+    return this.http.delete(url);
+  }
+
 }

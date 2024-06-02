@@ -3,5 +3,6 @@ export class Tour {
     name!: string;
     fromAddress!: string;
     toAddress!: string;
-    transportType!: string;
+    transportation_type!: string;
+
 }

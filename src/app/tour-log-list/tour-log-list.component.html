@@ -1,22 +1,29 @@
 <div class="card my-5">
-    <div class="card-body">
-      <table class="table table-bordered table-striped">
-        <thead class="thead-dark">
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Comment</th>
-            <th scope="col">Associated Tour</th>
-            <th scope="col">Difficulty Assertion</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let log of tour_logs">
-            <td>{{ log.id }}</td>
-            <td>{{ log.comment }}</td>
-            <td>{{ log.tour.id }}</td>
-            <td>{{ log.difficulty}}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+  <div class="card-body">
+    <table class="table table-bordered table-striped">
+      <!-- Table header -->
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Comment</th>
+          <th scope="col">Associated Tour</th>
+          <th scope="col">Difficulty Assertion</th>
+          <th scope="col">Rating</th>
+          <th scope="col">Date</th>
+        </tr>
+      </thead>
+      <!-- Table body -->
+      <tbody>
+        <!-- Rows for existing tour logs -->
+        <tr *ngFor="let log of tour_logs">
+          <td>{{ log.id }}</td>
+          <td>{{ log.comment }}</td>
+          <td>{{ tour.name }}</td>
+          <td>{{ log.difficulty }}</td>
+          <td>{{ log.rating }}</td>
+          <td>{{ formatDate(log.log_date) }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
+</div>

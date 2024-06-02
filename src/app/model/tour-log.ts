@@ -6,5 +6,5 @@ export class TourLog {
     tour !: Tour;
     difficulty !: string;
     rating !: number;
-    date !: string;
+    log_date !: string;
 }
