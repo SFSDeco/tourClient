@@ -10,20 +10,105 @@
           <th scope="col">Difficulty Assertion</th>
           <th scope="col">Rating</th>
           <th scope="col">Date</th>
+          <th scope="col">Actions</th>
         </tr>
       </thead>
       <!-- Table body -->
       <tbody>
         <!-- Rows for existing tour logs -->
         <tr *ngFor="let log of tour_logs">
-          <td>{{ log.id }}</td>
-          <td>{{ log.comment }}</td>
-          <td>{{ tour.name }}</td>
-          <td>{{ log.difficulty }}</td>
-          <td>{{ log.rating }}</td>
-          <td>{{ formatDate(log.log_date) }}</td>
-        </tr>
+          <ng-container *ngIf="!isEditing(log)">
+            <td>{{ log.id }}</td>
+            <td>{{ log.comment }}</td>
+            <td>{{ tour.name }}</td>
+            <td>{{ log.difficulty }}</td>
+            <td>{{ log.rating }}</td>
+            <td>{{ formatDate(log.log_date) }}</td>
+            <td>
+              <button class="btn btn-success btn-sm" (click)="editTourLog(log)">
+                <i class="fas fa-pencil-alt"></i>
+              </button>
+              <button class="btn btn-danger btn-sm" (click)="deleteTourLog(log.id)">
+                <i class="fas fa-times"></i>
+              </button>
+            </td>
+          </ng-container>
+          <ng-container *ngIf="isEditing(log)">
+            <td>{{ log.id }}</td>
+            <td>
+              <input type="text" class="form-control" [(ngModel)]="editLog.comment" required>
+            </td>
+            <td>{{ tour.name }}</td>
+            <td>
+              <select class="form-control" [(ngModel)]="editLog.difficulty" required>
+                <option value="" disabled selected>Select difficulty</option>
+                <option value="Very Easy">Very Easy</option>
+                <option value="Easy">Easy</option>
+                <option value="Moderate">Moderate</option>
+                <option value="Hard">Hard</option>
+                <option value="Very Hard">Very Hard</option>
+                <option value="Extreme">Extreme</option>
+              </select>
+            </td>
+            <td>
+              <input type="number" class="form-control" [(ngModel)]="editLog.rating" min="0" max="10" required>
+            </td>
+            <td>
+              <input type="date" class="form-control" [(ngModel)]="editLog.log_date" required>
+            </td>
+            <td>
+              <button class="btn btn-success btn-sm" (click)="saveEditTourLog(log.id)">
+                <i class="fas fa-save"></i>
+              </button>
+              <button class="btn btn-secondary btn-sm" (click)="cancelEditTourLog()">
+                <i class="fas fa-times"></i>
+              </button>
+            </td>
+          </ng-container>
       </tbody>
     </table>
+  </div>
+</div>
+
+<button class="btn btn-primary my-3" (click)="addTourLog()">Add Log</button>
+
+<!-- Form for adding a new tour log -->
+<div *ngIf="showAddLogForm" class="card my-3">
+  <div class="card-body">
+    <h5 class="card-title">Add New Tour Log</h5>
+    <form (ngSubmit)="saveNewTourLog()" #newLogForm="ngForm" novalidate>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="comment">Comment</label>
+          <input type="text" class="form-control" id="comment" name="comment" [(ngModel)]="newLog.comment" required #comment="ngModel">
+          <div *ngIf="newLogForm.submitted && comment.invalid" class="alert alert-danger">Comment is required</div>
+        </div>
+        <div class="form-group col-md-3">
+          <label for="difficulty">Difficulty Assertion</label>
+          <select class="form-control" id="difficulty" name="difficulty" [(ngModel)]="newLog.difficulty" required #difficulty="ngModel">
+            <option value="" disabled selected>Select difficulty</option>
+            <option value="Very Easy">Very Easy</option>
+            <option value="Easy">Easy</option>
+            <option value="Moderate">Moderate</option>
+            <option value="Hard">Hard</option>
+            <option value="Very Hard">Very Hard</option>
+            <option value="Extreme">Extreme</option>
+          </select>
+          <div *ngIf="newLogForm.submitted && difficulty.invalid" class="alert alert-danger">Difficulty Assertion is required</div>
+        </div>
+        <div class="form-group col-md-3">
+          <label for="date">Date</label>
+          <input type="date" class="form-control" id="log_date" name="log_date" [(ngModel)]="newLog.log_date" required #log_date="ngModel">
+          <div *ngIf="newLogForm.submitted && log_date.invalid" class="alert alert-danger">Date is required</div>
+        </div>
+        <div class="form-group col-md-3">
+          <label for="rating">Rating (out of 10)</label>
+          <input type="number" class="form-control" id="rating" name="rating" [(ngModel)]="newLog.rating" min="0" max="10" required #rating="ngModel">
+          <div *ngIf="newLogForm.submitted && rating.invalid" class="alert alert-danger">Rating is required</div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-success mr-2">Save</button>
+      <button type="button" class="btn btn-danger" (click)="cancelAddTourLog()">Cancel</button>
+    </form>
   </div>
 </div>
